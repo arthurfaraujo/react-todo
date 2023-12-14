@@ -1,7 +1,11 @@
+import TodoForm from './TodoForm'
+import '../../assets/Home.css'
+
 function Home() {
   return (
-    <div>
+    <div className="homePage">
       <h1>Home</h1>
+      <TodoForm />
     </div>
   )
 }

@@ -3,3 +3,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  min-height: 100vh;
+}
+
+body {
+  font-family: 'Andale Mono', monospace;
+  background-color: #f9f9f1;
+  padding-top: 2rem;
+}
