@@ -1,20 +1,32 @@
-import { useRef } from 'react'
+import React, { useState } from 'react'
+import { TodoItf } from './TodoList'
 
-function Form() {
-  const inputRef = useRef<HTMLInputElement>(null)
+function Form({ updateList }: { updateList: React.Dispatch<React.SetStateAction<TodoItf[]>> }) {
+  const [input, setInput] = useState<string>('')
+  
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setInput(e.currentTarget.value)
+  }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>, content: string) {
     e.preventDefault()
-    
-    if (inputRef.current?.value) {
-      console.log(inputRef.current.value)
-      inputRef.current.value = ''
+
+    if (content) {
+      updateList(list => [...list, {
+        index: list.length,
+        content,
+        done: false
+      }])
+
+      setInput('')
+    } else {
+      alert('Please type something')
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input ref={inputRef} type="text" placeholder="Type something you have to do" />
+    <form onSubmit={e => handleSubmit(e, input)}>
+      <input className='todoInput' type="text" placeholder="Type something you have to do" value={input} onChange={handleChange} />
     </form>
   )
 }
