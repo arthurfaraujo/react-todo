@@ -13,7 +13,7 @@ function Form({ updateList }: { updateList: React.Dispatch<React.SetStateAction<
 
     if (content) {
       updateList(list => [...list, {
-        index: list.length,
+        index: new Date().getTime(),
         content,
         done: false
       }])

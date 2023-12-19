@@ -6,12 +6,13 @@ export interface TodoItf {
   done: boolean
 }
 
-function List({ list, handleClick }: { list: TodoItf[], handleClick: (index: number) => void }) {
+function List({ list, handleClick, handleChange }: { list: TodoItf[], handleClick: (index: number) => void, handleChange: (index: number) => void }) {
 
   return (
     <ul className="todoList">
-      {list.map((todo, index) => {
-        return <Todo key={index} info={{...todo}} handleClick={handleClick} />
+      {list.map((todo, index) => { 
+        console.log('todo', todo)
+        return <Todo key={index} info={{...todo}} handleClick={handleClick} handleChange={handleChange} />
       })}
     </ul>
   )
