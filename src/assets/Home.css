@@ -24,11 +24,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-top: 1px solid #444444;
   /* border-radius: 0.2rem; */
-}
-
-.todoList:last-child {
-  border-bottom: 1px solid #444444;
 }
 
 .todo {
@@ -37,18 +34,28 @@
   align-items: center;
   width: 100%;
   min-height: 3rem;
-  border-top: 1px solid #444444;
+  border-bottom: 1px solid #444444;
   gap: 1rem;
-  /* background-color: #e5e9bf; */
   font-weight: bolder;
   overflow-wrap: break-word;
+}
+
+.todo input {
+  border-radius: 50rem;
+}
+
+.todo button {
+  /* width: 1.5rem; */
+  /* height: 1.5rem; */
+  border-radius: 0.2rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.5rem;
 }
 
 .checked {
   text-decoration: line-through;
   color: #858585; 
-}
-
-.todo input {
-  border-radius: 50rem;
 }
