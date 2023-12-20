@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { TodoItf } from './TodoList'
+import { TodoContext } from '../../contexts/Todo'
+import { useContext } from 'react'
 
-function Form({ updateList }: { updateList: React.Dispatch<React.SetStateAction<TodoItf[]>> }) {
+function Form() {
   const [input, setInput] = useState<string>('')
-  
+  const { addTodo } = useContext(TodoContext)
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInput(e.currentTarget.value)
   }
@@ -12,11 +14,11 @@ function Form({ updateList }: { updateList: React.Dispatch<React.SetStateAction<
     e.preventDefault()
 
     if (content) {
-      updateList(list => [...list, {
+      addTodo({
         index: new Date().getTime(),
         content,
         done: false
-      }])
+      })
 
       setInput('')
     } else {

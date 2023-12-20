@@ -1,18 +1,14 @@
 import Todo from "./Todo"
+import { useContext } from "react"
+import { TodoContext } from "../../contexts/Todo"
 
-export interface TodoItf {
-  index: number
-  content: string
-  done: boolean
-}
-
-function List({ list, handleClick, handleChange }: { list: TodoItf[], handleClick: (index: number) => void, handleChange: (index: number) => void }) {
+function List() {
+  const { list } = useContext(TodoContext)
 
   return (
     <ul className="todoList">
-      {list.map((todo, index) => { 
-        console.log('todo', todo)
-        return <Todo key={index} info={{...todo}} handleClick={handleClick} handleChange={handleChange} />
+      {list.map((todo, index) => {
+        return <Todo key={index} info={{ ...todo }} />
       })}
     </ul>
   )

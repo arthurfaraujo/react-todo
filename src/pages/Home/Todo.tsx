@@ -1,18 +1,15 @@
-import { TodoItf } from "./TodoList"
-// import { useState } from 'react'
+import { TodoItf } from "../../common/interfaces"
+import { TodoContext } from "../../contexts/Todo"
+import { useContext } from "react"
 
-function Todo({ info, handleClick, handleChange }: { info: TodoItf, handleClick: (index: number) => void, handleChange: (index: number) => void }) {
+function Todo({ info }: { info: TodoItf }) {
   const { index, content, done } = info
-  // const [checked, setChecked] = useState<boolean>(done)
+  const { handleClick, handleChange } = useContext(TodoContext)
 
-  /* function handleChange() {
-    setChecked(checked => !checked)
-  } */
-
-  return <li className={done ? "todo checked" : "todo"}>
+  return <li className="todo">
     <input type="checkbox" checked={done} onChange={() => handleChange(index)} />
-    <p>{content}</p>
-    <button onClick={() => handleClick(index)}>X</button>
+    <p className={done ? 'checked' : ''}>{content}</p>
+    <button onClick={() => handleClick(index)}>&times;</button>
   </li>
 }
 
