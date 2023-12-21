@@ -1,10 +1,27 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import { TodoItf, TodoContextItf } from '../common/interfaces'
 
 export const TodoContext = createContext<TodoContextItf>({} as TodoContextItf)
 
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
   const [list, setList] = useState<TodoItf[]>([])
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:3000/api/todos')
+        const data = await response.json()
+
+        console.log(data)
+
+        setList(data.todos)
+      } catch (error) {
+        alert(error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   function handleClick(todoIndex: number) {
     setList(list => list.filter((todo) => todo.index !== todoIndex))
