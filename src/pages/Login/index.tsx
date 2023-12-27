@@ -1,7 +1,11 @@
+import Form from "./Form"
+import "../../assets/Login.css"
+
 function Login() {
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="login">
+      <h1>Log in</h1>
+      <Form />
     </div>
   )
 }
