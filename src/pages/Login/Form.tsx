@@ -1,15 +1,20 @@
+import Input from "../../components/Input"
+
 function Form() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const form = e.currentTarget
+    const formData = Object.fromEntries(new FormData(form)) 
+
+    console.log(formData)
+  }
+
   return (
-    <form className="loginForm">
-      <div className="inputDiv">
-        <input type="email" />
-        <div className="placeholderDiv">Enter your e-mail</div>
-      </div>
-      <div className="inputDiv">
-        <input type="password" />
-        <div className="placeholderDiv">Enter your password</div>
-      </div>
-      <button type="submit">Log in</button>
+    <form className="authForm" onSubmit={handleSubmit}>
+      <Input label="Enter your email" type="email" />
+      <Input label="Enter your password" type="password" />
+      <button type="submit">Log In</button>
     </form>
   )
 }
