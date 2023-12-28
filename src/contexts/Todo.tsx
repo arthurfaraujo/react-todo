@@ -16,7 +16,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
 
         setList(data.todos)
       } catch (error) {
-        alert(error)
+        console.log(error)
       }
     }
 
