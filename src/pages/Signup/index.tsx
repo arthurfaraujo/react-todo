@@ -1,7 +1,7 @@
 import Form from "./Form"
 import "../../assets/Auth.css"
 
-function Login() {
+function SignUp() {
   return (
     <div className="auth">
       <h1>Sign Up</h1>
@@ -10,4 +10,4 @@ function Login() {
   )
 }
 
-export default Login
+export default SignUp
