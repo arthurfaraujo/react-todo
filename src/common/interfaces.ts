@@ -10,3 +10,9 @@ export interface TodoContextItf {
   handleClick: (index: number) => void;
   handleChange: (index: number) => void;
 }
+
+export interface UserItf {
+  email: string
+  nickname?: string
+  password: string
+}

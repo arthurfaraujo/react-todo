@@ -1,7 +1,10 @@
-function Input({ label, type }: { label: string, type: string }) {
+function Input({ label, type, name, handleChange }: {
+  label: string, type: string, name?: string,
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}) {
   return (
     <div className="inputDiv">
-      <input type={type} name={type} />
+      <input type={type} name={name ? name : type} onChange={handleChange} />
       <div className="placeholderDiv">{label}</div>
     </div>
   )

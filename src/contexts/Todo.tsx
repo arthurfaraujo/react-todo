@@ -43,6 +43,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
   function addTodo(todo: TodoItf) {
     setList(list => [...list, todo])
   }
+
   return (
     <TodoContext.Provider value={{ list, addTodo, handleClick, handleChange }}>
       {children}
