@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Layout from './layout'
+import PrivateRoute from './components/PrivateRoute'
 
 export const Router = createBrowserRouter([
   {
@@ -11,7 +12,9 @@ export const Router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: <PrivateRoute element={
+          <Home />
+        } />
       },
       {
         path: 'login',
