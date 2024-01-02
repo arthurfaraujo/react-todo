@@ -5,14 +5,13 @@ export const TodoContext = createContext<TodoContextItf>({} as TodoContextItf)
 
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
   const [list, setList] = useState<TodoItf[]>([])
+  const [token, setToken] = useState<string | null>(localStorage.getItem('@react-todo:token'))
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3000/api/todos')
+        const response = await fetch('http://localhost:3000/api/todo')
         const data = await response.json()
-
-        console.log(data)
 
         setList(data.todos)
       } catch (error) {
@@ -44,8 +43,22 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     setList(list => [...list, todo])
   }
 
+  function getToken() {
+    return token
+  }
+
+  function changeToken(token?: string) {
+    if (token) {
+      localStorage.setItem('@react-todo:token', token)
+      setToken(token)
+    } else {
+      localStorage.removeItem('@react-todo:token')
+      setToken(null)
+    }
+  }
+
   return (
-    <TodoContext.Provider value={{ list, addTodo, handleClick, handleChange }}>
+    <TodoContext.Provider value={{ list, addTodo, handleClick, handleChange, token, getToken, changeToken }}>
       {children}
     </TodoContext.Provider>)
 }
