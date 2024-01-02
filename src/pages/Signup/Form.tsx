@@ -1,9 +1,12 @@
 import Input from '../../components/Input'
 import React, { useState } from 'react'
 import { UserItf } from '../../common/interfaces'
+import API from '../../services/axios'
+import { useNavigate } from 'react-router-dom'
 
 function Form() {
   const [user, setUser] = useState<UserItf>({} as UserItf)
+  const navigate = useNavigate()
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setUser({
@@ -14,8 +17,17 @@ function Form() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>, userInfo: UserItf) {
     e.preventDefault()
-    console.log(userInfo)
+
+    API.post('/user', userInfo).then(res => {
+      if (res.data.created) {
+        console.log(res.data)
+        navigate('/login')
+      }
+    }).catch(() => {
+      alert('There was an error creating your account, please try again')
+    })
   }
+
   return (
     <form className="authForm" onSubmit={(e) => handleSubmit(e, user)}>
       <Input label="Enter your email" type="email" handleChange={handleChange} />
