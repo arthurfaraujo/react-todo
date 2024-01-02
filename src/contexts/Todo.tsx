@@ -32,7 +32,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
       if (todo.index === todoIndex) {
         return {
           ...todo,
-          done: !todo.done
+          done: !todo.completed
         }
       } else {
         return todo

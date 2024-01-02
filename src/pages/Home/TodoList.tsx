@@ -7,7 +7,7 @@ function List() {
 
   return (
     <ul className="todoList">
-      {list.map((todo, index) => {
+      {list?.map((todo, index) => {
         return <Todo key={index} info={{ ...todo }} />
       })}
     </ul>
