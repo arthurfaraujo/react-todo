@@ -3,13 +3,13 @@ import { TodoContext } from "../../contexts/Todo"
 import { useContext } from "react"
 
 function Todo({ info }: { info: TodoItf }) {
-  const { index, title, completed } = info
+  const { id, title, completed } = info
   const { handleClick, handleChange } = useContext(TodoContext)
 
   return <li className="todo">
-    <input type="checkbox" checked={completed} onChange={() => handleChange(index)} />
+    <input type="checkbox" checked={completed} onChange={() => handleChange(id)} />
     <p className={completed ? 'checked' : ''}>{title}</p>
-    <button onClick={() => handleClick(index)}>&times;</button>
+    <button onClick={() => handleClick(id)}>&times;</button>
   </li>
 }
 

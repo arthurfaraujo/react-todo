@@ -23,12 +23,12 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
   }, [])
 
   function handleClick(todoIndex: number) {
-    setList(list => list.filter((todo) => todo.index !== todoIndex))
+    setList(list => list.filter((todo) => todo.id !== todoIndex))
   }
 
   function handleChange(todoIndex: number) {
     setList(list => list.map((todo) => {
-      if (todo.index === todoIndex) {
+      if (todo.id === todoIndex) {
         return {
           ...todo,
           done: !todo.completed
