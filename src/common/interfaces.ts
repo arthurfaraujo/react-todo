@@ -1,5 +1,5 @@
 export interface TodoItf {
-  index: number
+  id: number
   title: string
   completed: boolean
 }
