@@ -1,26 +1,25 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
-import { TodoItf, TodoContextItf } from '../common/interfaces'
+import { ReactNode, useEffect, useState } from 'react'
+import { TodoItf } from '../common/interfaces'
+import API from '../services/axios'
+import { TodoContext } from './Todo'
 
-export const TodoContext = createContext<TodoContextItf>({} as TodoContextItf)
-
-export const TodoProvider = ({ children }: { children: ReactNode }) => {
+function TodoProvider({ children }: { children: ReactNode }) {
   const [list, setList] = useState<TodoItf[]>([])
   const [token, setToken] = useState<string | null>(localStorage.getItem('@react-todo:token'))
 
   useEffect(() => {
-    async function fetchData() {
+    function fetchData() {
       try {
-        const response = await fetch('http://localhost:3000/api/todo')
-        const data = await response.json()
-
-        setList(data.todos)
-      } catch (error) {
-        console.log(error)
+        API.get('http://localhost:3000/api/todo').then(res => {
+          setList(res.data.todos)
+        })
+      } catch (e) {
+        console.log(e)
       }
     }
 
     fetchData()
-  }, [])
+  }, [token])
 
   function handleClick(todoIndex: number) {
     setList(list => list.filter((todo) => todo.id !== todoIndex))
@@ -62,3 +61,5 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </TodoContext.Provider>)
 }
+
+export default TodoProvider
