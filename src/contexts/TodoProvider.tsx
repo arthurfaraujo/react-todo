@@ -38,8 +38,12 @@ function TodoProvider({ children }: { children: ReactNode }) {
     }))
   }
 
-  function addTodo(todo: TodoItf) {
-    setList(list => [...list, todo])
+  function addTodo(title: string) {
+    API.post('/todo', { title }).then(res => {
+      if (res.data.created) {
+        setList(list => [...list, { id: res.data.todo.id, title, completed: false}])
+      }
+    })
   }
 
   function getToken() {

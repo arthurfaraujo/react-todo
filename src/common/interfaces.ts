@@ -6,7 +6,7 @@ export interface TodoItf {
 
 export interface TodoContextItf {
   list: TodoItf[]
-  addTodo: (todo: TodoItf) => void
+  addTodo: (title: string) => void
   removeTodo: (index: number) => void
   completeTodo: (index: number) => void
   token: string | null

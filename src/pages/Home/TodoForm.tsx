@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { TodoContext } from '../../contexts/Todo'
 import { useContext } from 'react'
-import API from '../../services/axios'
 
 function Form() {
   const [input, setInput] = useState<string>('')
@@ -15,15 +14,7 @@ function Form() {
     e.preventDefault()
 
     if (input.trim() !== '') {
-      API.post('/todo', { title: input }).then(res => {
-        if (res.data.created) {
-          addTodo({
-            id: res.data.todo.id,
-            title: res.data.todo.title,
-            completed: res.data.todo.completed
-          })
-        }
-      })
+      addTodo(input)
 
       setInput('')
     } else {
