@@ -11,11 +11,11 @@ function Form() {
     setInput(e.currentTarget.value)
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>, title: string) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if (title.trim() !== '') {
-      API.post('/todo', { title }).then(res => {
+    if (input.trim() !== '') {
+      API.post('/todo', { title: input }).then(res => {
         if (res.data.created) {
           addTodo({
             id: res.data.todo.id,
@@ -32,7 +32,7 @@ function Form() {
   }
 
   return (
-    <form onSubmit={e => handleSubmit(e, input)}>
+    <form onSubmit={e => handleSubmit(e)}>
       <input className='todoInput' type="text" placeholder="Type something you have to do" value={input} onChange={handleChange} />
     </form>
   )
