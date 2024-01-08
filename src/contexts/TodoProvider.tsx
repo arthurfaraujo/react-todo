@@ -21,11 +21,11 @@ function TodoProvider({ children }: { children: ReactNode }) {
     fetchData()
   }, [token])
 
-  function handleClick(todoIndex: number) {
+  function removeTodo(todoIndex: number) {
     setList(list => list.filter((todo) => todo.id !== todoIndex))
   }
 
-  function handleChange(todoIndex: number) {
+  function completeTodo(todoIndex: number) {
     setList(list => list.map((todo) => {
       if (todo.id === todoIndex) {
         return {
@@ -57,7 +57,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <TodoContext.Provider value={{ list, addTodo, handleClick, handleChange, token, getToken, changeToken }}>
+    <TodoContext.Provider value={{ list, addTodo, removeTodo, completeTodo, token, getToken, changeToken }}>
       {children}
     </TodoContext.Provider>)
 }

@@ -7,8 +7,8 @@ export interface TodoItf {
 export interface TodoContextItf {
   list: TodoItf[]
   addTodo: (todo: TodoItf) => void
-  handleClick: (index: number) => void
-  handleChange: (index: number) => void
+  removeTodo: (index: number) => void
+  completeTodo: (index: number) => void
   token: string | null
   getToken: () => string | null
   changeToken: (token?: string) => void
