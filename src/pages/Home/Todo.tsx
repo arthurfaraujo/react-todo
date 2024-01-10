@@ -25,7 +25,7 @@ function Todo({ info }: { info: TodoItf }) {
         setChecked(!checked)
         completeTodo(id)
       }} />
-      <input className={checked ? 'checked' : ''} value={todo} onChange={handleChange} onBlur={handleBlur} />
+      <input className={checked ? 'todoTitle checked' : 'todoTitle'} value={todo} onChange={handleChange} onBlur={handleBlur} />
       <button onClick={() => removeTodo(id)}>&times;</button>
     </li>
   }

@@ -18,6 +18,15 @@
   /* box-shadow: -5px 5px 0.3rem 0px #bfbfbf; */
 }
 
+.todoTitle {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1.1rem;
+  font-family: inherit;
+}
+
 .todoList {
   width: 20rem;
   list-style: none;
