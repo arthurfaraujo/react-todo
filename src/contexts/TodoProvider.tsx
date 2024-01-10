@@ -21,21 +21,29 @@ function TodoProvider({ children }: { children: ReactNode }) {
     fetchData()
   }, [token])
 
-  function removeTodo(todoIndex: number) {
-    setList(list => list.filter((todo) => todo.id !== todoIndex))
+  function removeTodo(todoId: number) {
+    API.delete(`/todo/${todoId}`).then(res => {
+      if (res.data.removed) {
+        setList(list => list.filter((todo) => todo.id !== todoId))
+      }
+    })
   }
 
-  function completeTodo(todoIndex: number) {
-    setList(list => list.map((todo) => {
-      if (todo.id === todoIndex) {
-        return {
-          ...todo,
-          done: !todo.completed
-        }
-      } else {
-        return todo
+  function completeTodo(todoId: number) {
+    API.patch(`/todo/${todoId}`).then(res => {
+      if (res.data.updated) {
+        setList(list => list.map((todo) => {
+          if (todo.id === todoId) {
+            return {
+              ...todo,
+              done: !todo.completed
+            }
+          } else {
+            return todo
+          }
+        }))
       }
-    }))
+    })
   }
 
   function addTodo(title: string) {
