@@ -1,5 +1,5 @@
 export interface TodoItf {
-  id: number
+  id: string
   title: string
   completed: boolean
 }
@@ -7,8 +7,9 @@ export interface TodoItf {
 export interface TodoContextItf {
   list: TodoItf[]
   addTodo: (title: string) => void
-  removeTodo: (id: number) => void
-  completeTodo: (id: number) => void
+  removeTodo: (id: string) => void
+  completeTodo: (id: string) => void
+  changeTodo: (id: string, title: string) => void
   token: string | null
   getToken: () => string | null
   changeToken: (token?: string) => void
