@@ -21,7 +21,7 @@ function Form() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    API.post('/user/login', userLogin).then(res => {
+    API.req.post('/user/login', userLogin).then(res => {
       if (res.data.authenticated) {
         navigate('/')
         changeToken(res.data.token)

@@ -10,7 +10,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     function fetchData() {
       try {
-        API.get('http://localhost:3000/api/todo').then(res => {
+        API.authReq.get('http://localhost:3000/api/todo').then(res => {
           setList(res.data.todos)
         })
       } catch (e) {
@@ -22,7 +22,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   }, [token])
 
   function removeTodo(todoId: number) {
-    API.delete(`/todo/${todoId}`).then(res => {
+    API.authReq.delete(`/todo/${todoId}`).then(res => {
       if (res.data.removed) {
         setList(list => list.filter((todo) => todo.id !== todoId))
       }
@@ -30,7 +30,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   }
 
   function completeTodo(todoId: number) {
-    API.patch(`/todo/${todoId}`).then(res => {
+    API.authReq.patch(`/todo/${todoId}`).then(res => {
       if (res.data.updated) {
         setList(list => list.map((todo) => {
           if (todo.id === todoId) {
@@ -47,7 +47,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   }
 
   function addTodo(title: string) {
-    API.post('/todo', { title }).then(res => {
+    API.authReq.post('/todo', { title }).then(res => {
       if (res.data.created) {
         setList(list => [...list, { id: res.data.todo.id, title, completed: false}])
       }

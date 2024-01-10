@@ -18,7 +18,7 @@ function Form() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>, userInfo: UserItf) {
     e.preventDefault()
 
-    API.post('/user', userInfo).then(res => {
+    API.req.post('/user', userInfo).then(res => {
       if (res.data.created) {
         console.log(res.data)
         navigate('/login')

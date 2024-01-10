@@ -4,11 +4,15 @@ const URL = 'http://localhost:3000/api/'
 
 const token = localStorage.getItem('@react-todo:token')
 
-const instance = axios.create({
+const authReq = axios.create({
   baseURL: URL,
   headers: token ? {
     Authorization: `Bearer ${token}`
   } : undefined
 })
 
-export default instance
+const req = axios.create({
+  baseURL: URL
+})
+
+export default {authReq, req}
