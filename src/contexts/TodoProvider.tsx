@@ -21,7 +21,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
     fetchData()
   }, [token])
 
-  function removeTodo(todoId: number) {
+  function removeTodo(todoId: string) {
     API.authReq.delete(`/todo/${todoId}`).then(res => {
       if (res.data.removed) {
         setList(list => list.filter((todo) => todo.id !== todoId))
@@ -29,7 +29,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
     })
   }
 
-  function completeTodo(todoId: number) {
+  function completeTodo(todoId: string) {
     API.authReq.patch(`/todo/${todoId}`).then(res => {
       if (res.data.updated) {
         setList(list => list.map((todo) => {
@@ -49,7 +49,24 @@ function TodoProvider({ children }: { children: ReactNode }) {
   function addTodo(title: string) {
     API.authReq.post('/todo', { title }).then(res => {
       if (res.data.created) {
-        setList(list => [...list, { id: res.data.todo.id, title, completed: false}])
+        setList(list => [...list, { id: res.data.todo.id, title, completed: false }])
+      }
+    })
+  }
+
+  function changeTodo(id: string, title: string) {
+    API.authReq.patch(`/todo/${id}`, { title }).then(res => {
+      if (res.data.updated) {
+        setList(list => list.map(todo => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              title
+            }
+          } else {
+            return todo
+          }
+        }))
       }
     })
   }
@@ -69,7 +86,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <TodoContext.Provider value={{ list, addTodo, removeTodo, completeTodo, token, getToken, changeToken }}>
+    <TodoContext.Provider value={{ list, addTodo, removeTodo, completeTodo, changeTodo, token, getToken, changeToken }}>
       {children}
     </TodoContext.Provider>)
 }

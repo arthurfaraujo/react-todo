@@ -4,17 +4,30 @@ import { useContext, useState } from "react"
 
 function Todo({ info }: { info: TodoItf }) {
   const { id, title, completed } = info
-  const { removeTodo, completeTodo } = useContext(TodoContext)
+  const [todo, setTodo] = useState<string>(title)
+  const { removeTodo, completeTodo, changeTodo } = useContext(TodoContext)
   const [checked, setChecked] = useState<boolean>(completed)
 
-  return <li className="todo">
-    <input type="checkbox" checked={checked} onChange={() => {
-      setChecked(!checked)
-      completeTodo(id)
-    }} />
-    <p className={checked ? 'checked' : ''}>{title}</p>
-    <button onClick={() => removeTodo(id)}>&times;</button>
-  </li>
-}
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setTodo(e.currentTarget.value)
+  }
 
-export default Todo
+  function handleBlur() {
+    if (todo.trim() === '') {
+      setTodo(title)
+    } else {
+      changeTodo(id, todo)
+    }
+  }
+
+    return <li className="todo">
+      <input type="checkbox" checked={checked} onChange={() => {
+        setChecked(!checked)
+        completeTodo(id)
+      }} />
+      <input className={checked ? 'checked' : ''} value={todo} onChange={handleChange} onBlur={handleBlur} />
+      <button onClick={() => removeTodo(id)}>&times;</button>
+    </li>
+  }
+
+  export default Todo
