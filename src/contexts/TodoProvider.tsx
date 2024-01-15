@@ -1,25 +1,11 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { TodoItf } from '../common/interfaces'
 import API from '../services/axios'
 import { TodoContext } from './Todo'
 
 function TodoProvider({ children }: { children: ReactNode }) {
   const [list, setList] = useState<TodoItf[]>([])
-  const [token, setToken] = useState<string | null>(localStorage.getItem('@react-todo:token'))
-
-  useEffect(() => {
-    function fetchData() {
-      try {
-        API.authReq.get('http://localhost:3000/api/todo').then(res => {
-          setList(res.data.todos)
-        })
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    fetchData()
-  }, [token])
+  const [token, setToken] = useState<string | null>(null)
 
   function removeTodo(todoId: string) {
     API.authReq.delete(`/todo/${todoId}`).then(res => {
@@ -86,7 +72,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <TodoContext.Provider value={{ list, addTodo, removeTodo, completeTodo, changeTodo, token, getToken, changeToken }}>
+    <TodoContext.Provider value={{ list, setList, addTodo, removeTodo, completeTodo, changeTodo, token, getToken, changeToken }}>
       {children}
     </TodoContext.Provider>)
 }
