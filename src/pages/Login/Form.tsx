@@ -23,8 +23,8 @@ function Form() {
 
     API.req.post('/user/login', userLogin).then(res => {
       if (res.data.authenticated) {
-        navigate('/')
         changeToken(res.data.token)
+        navigate('/')
       }
     }).catch(err => {
       alert(err.response.data.message)
