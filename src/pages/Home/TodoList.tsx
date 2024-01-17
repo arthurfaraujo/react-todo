@@ -9,7 +9,7 @@ function List() {
   const [error, setError] = useState<boolean>(false)
 
   useEffect(() => {
-    API.authReq.get('/todo').then(res => {
+    API.authReq().get('/todo').then(res => {
       setList(res.data.todos)
       setLoading(false)
     }).catch(() => {

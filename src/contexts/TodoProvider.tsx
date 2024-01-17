@@ -8,7 +8,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null)
 
   function removeTodo(todoId: string) {
-    API.authReq.delete(`/todo/${todoId}`).then(res => {
+    API.authReq().delete(`/todo/${todoId}`).then(res => {
       if (res.data.removed) {
         setList(list => list.filter((todo) => todo.id !== todoId))
       }
@@ -16,7 +16,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   }
 
   function completeTodo(todoId: string) {
-    API.authReq.patch(`/todo/${todoId}`).then(res => {
+    API.authReq().patch(`/todo/${todoId}`).then(res => {
       if (res.data.updated) {
         setList(list => list.map((todo) => {
           if (todo.id === todoId) {
@@ -33,7 +33,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   }
 
   function addTodo(title: string) {
-    API.authReq.post('/todo', { title }).then(res => {
+    API.authReq().post('/todo', { title }).then(res => {
       if (res.data.created) {
         setList(list => [...list, { id: res.data.todo.id, title, completed: false }])
       }
@@ -41,7 +41,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
   }
 
   function changeTodo(id: string, title: string) {
-    API.authReq.patch(`/todo/${id}`, { title }).then(res => {
+    API.authReq().patch(`/todo/${id}`, { title }).then(res => {
       if (res.data.updated) {
         setList(list => list.map(todo => {
           if (todo.id === id) {
